@@ -1,0 +1,12 @@
+{
+  "name": "small-compiler",
+  "version": "1.0.0",
+  "description": "POC small compiler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Mohamed Waleed",
+  "license": "ISC"
+}
