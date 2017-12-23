@@ -8,7 +8,7 @@ function parser(tokens) {
         params: [],
         body: {}
       };
-      while(token.type !== 'Identifier' && tokens[position].type !== 'paren' && tokens[position].value !== ')') {
+      while(position < tokens.length &&  token.type !== 'Identifier' && tokens[position].type !== 'paren' && tokens[position].value !== ')') {
         arrowFucntionExepressionNode.params.push({
           type: 'Identifier',
           value: tokens[position].value
@@ -25,13 +25,13 @@ function parser(tokens) {
       if(tokens[position].type === 'arrow') {
         position ++;
       }
-      if(tokens[position].type === 'curlybrackets' && tokens[position].value === '{') {
+      if(position < tokens.length && tokens[position].type === 'curlybrackets' && tokens[position].value === '{') {
         position ++;
         let blockStatementNode = {
           type: 'BlockStatement',
           body: []
         };
-        while(tokens[position].type !== 'curlybrackets' && tokens[position].value !== '}') {
+        while(position < tokens.length && tokens[position].type !== 'curlybrackets' && tokens[position].value !== '}') {
           position ++;
         }
         position ++;
