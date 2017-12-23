@@ -18,6 +18,10 @@ function traverser(ast, visitor) {
           break;
         case 'ArrowFunctionExpression':
           traverseArray(node.params, node);
+          traversNode(node.body, node);
+          break;
+        case 'BlockStatement':
+          traverseArray(node.body, node);
           break;
         case 'Identifier':
           break;

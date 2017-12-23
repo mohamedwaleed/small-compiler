@@ -3,20 +3,20 @@ function parser(tokens) {
   function walk() {
     let token = tokens[position ++];
     if((token.type === 'paren' && token.value === '(') || token.type === 'Identifier') {
-      let node = {
+      let arrowFucntionExepressionNode = {
         type: 'ArrowFunctionExpression',
         params: [],
-        body: []
+        body: {}
       };
       while(token.type !== 'Identifier' && tokens[position].type !== 'paren' && tokens[position].value !== ')') {
-        node.params.push({
+        arrowFucntionExepressionNode.params.push({
           type: 'Identifier',
           value: tokens[position].value
         });
         position ++;
       }
       if(token.type === 'Identifier') {
-        node.params.push({
+        arrowFucntionExepressionNode.params.push({
           type: 'Identifier',
           value: token.value
         });
@@ -27,14 +27,19 @@ function parser(tokens) {
       }
       if(tokens[position].type === 'curlybrackets' && tokens[position].value === '{') {
         position ++;
+        let blockStatementNode = {
+          type: 'BlockStatement',
+          body: []
+        };
         while(tokens[position].type !== 'curlybrackets' && tokens[position].value !== '}') {
           position ++;
         }
         position ++;
+        arrowFucntionExepressionNode.body = blockStatementNode;
       }else {
         throw new TypeError("Unknown expression");
       }
-      return node;
+      return arrowFucntionExepressionNode;
     }
     throw new TypeError(token.type);
   }

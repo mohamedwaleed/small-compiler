@@ -22,11 +22,26 @@ function transformer(ast) {
         let expression = {
           type: 'FunctionExpression',
           params: [],
-          body: []
+          body: {}
         };
 
         node._context = expression.params;
+        node._body = expression.body;
         parent._context.push(expression);
+      }
+    },
+    BlockStatement: {
+      enter: function (node, parent) {
+        if(parent.type === 'ArrowFunctionExpression') {
+          let blockStatementExpression = {
+            type: 'BlockStatement',
+            body: []
+          };
+
+          node._context = blockStatementExpression.body;
+          parent._body.type = blockStatementExpression.type;
+          parent._body.body = blockStatementExpression.body;
+        }
       }
     }
   });

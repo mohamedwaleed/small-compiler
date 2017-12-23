@@ -6,10 +6,9 @@ let fs = require('fs');
 let args = process.argv;
 
 function compiler(input) {
-  console.log(input);
   var tokens = tokenizer(input);
-  console.log(tokens);
   var ast = parser(tokens);
+  console.log(ast);
   var newAst = transformer(ast);
   console.log(newAst);
   var generatedCode = generator(newAst);
